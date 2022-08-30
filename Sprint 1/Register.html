@@ -1,0 +1,57 @@
+// An highlighted block
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Login Interface</title>
+		<link rel="stylesheet" href="login&register.css">
+		<script>
+			function $(id){
+				return document.getElementById(id);
+			}
+			function confirm(){
+				var username1 = $("username1").value;
+				var password1 = $("password1").value;
+				if(username1.length == 0){
+					$("username1").focus();
+					alert("Please enter your user name!");
+					return false;
+				} 
+				if(username1 != "1234"){
+					$("username1").focus();
+					alert("Wrong user name or password!");
+					return false;
+				}
+				if(password1.length == 0){
+					$("password1").focus();
+					alert("Please input your password");
+					return false;
+				}
+				if(password1 != "1234"){
+					$("password1").focus();
+					alert("Wrong user name or password!")
+					return false;
+				}
+				alert("Login succeeded");
+			}
+		</script>
+	</head>
+	<body>
+		<form class="box" action="index.html" onsubmit="return confirm()" method="post">
+			<h1>登录</h1>
+			<input id="username1" type="text" name="" placeholder="user name">
+			<input id="password1" type="password" name="" placeholder="password">
+			<input type="submit" name="" value="登录">
+			<p class="meassage">Not registered yet?<a href="注册页面.html"> Register</a>
+			</p>
+			<div class="checkbox"> 
+				<label>
+					<input type="checkbox" ><span id="checkbox1" class="checkboxmessage" style="font-size: 12px;">Remember password</span>
+				</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label>
+					<input type="checkbox" ><span id="checkbox2" class="checkboxmessage" style="font-size: 12px;">Automatic logon</span>
+			</div>
+		</form>
+	</body>
+</html>
+
