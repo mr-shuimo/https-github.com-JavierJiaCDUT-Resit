@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="static/jq.js"></script>
+    <title>{% block title %}{% endblock title %}</title>
+    <style>
+        body{
+            width: 1200px;
+            margin:  0 auto;
+        }
+        a {
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        tr td {
+            border: 1px solid black;
+        }
+
+        tr{
+            margin-bottom: 15px;
+        }
+
+    </style>
+    {% block css %}
+    {% endblock css %}
+</head>
+<body>
+{% block nav %}
+
+{% endblock nav %}
+{% block body %}
+{% endblock body %}
+
+</body>
+</html>
+{% block js %}
+{% endblock js %}
+

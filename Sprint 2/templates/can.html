@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}
+    viewDetailed
+{% endblock title %}
+{% block body %}
+    <div style="line-height: 40px;background: #eee; text-align: center; margin-bottom: 20px;">
+        bbsForumCenter
+    </div>
+    <div>
+        <div>themeDetail
+            <button style="float: right;"><a href="/?ac=index">Back</a></button>
+        </div>
+        <hr>
+        <table>
+            <tr>
+                <td>title</td>
+                <td style="width: 610px;">{{ data.title }}</td>
+                <td>issuer</td>
+                <td style="width: 120px;">{{ data.user }}</td>
+                <td style="width: 180px;">time</td>
+                <td>{{ data.ctime }}</td>
+            </tr>
+            <tr>
+                <td>revertContent</td>
+                <td colspan="5" style="height: 100px;">
+                    {{ data.text }}
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div>publishContent
+            <button style="float: right; line-height: 30px;" id="revetBtn" sub_id="{{ data.id }}">revert</button>
+            <input type="text" placeholder="revertContent" id="revet"
+                   style="width: 900px; line-height: 30px;float: right;">
+
+        </div>
+        <div style="margin-top: 40px;">
+            {% for datum in data.revet %}
+            <div class="bk" style="height: 80px;margin-bottom: 10px;">
+                <div class="content">revertContent：{{ datum.revet }}</div>
+                <div style="margin-top: 10px;"><span>replier： {{ datum.user }}</span> |
+                    <sanp>revertTime： {{ datum.ctime }}</sanp>
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock body %}
+{% block js %}
+    <script>
+        $(function () {
+            $('#revetBtn').click(function () {
+                var sub_id = $(this).attr('sub_id')
+                var revet = $('#revet').val()
+                $.post('/revet', {sub_id: sub_id, revet: revet}, function (ret) {
+                    alert(ret.message)
+                    window.location.reload()
+                })
+            })
+        })
+    </script>
+{% endblock js %}
+{% block css %}
+    <style>
+        .nav li {
+            display: inline-block;
+            width: 120px;
+        }
+
+        .nav {
+            background: #eee;
+            height: 40px;
+            line-height: 40px;
+        }
+    </style>
+{% endblock css %}

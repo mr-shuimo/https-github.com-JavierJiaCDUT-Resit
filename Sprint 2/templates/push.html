@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+    ReleaseTheme
+{% endblock title %}
+{% block body %}
+    <div style="line-height: 40px;background: #eee; text-align: center; margin-bottom: 20px;">
+        bbsForumCenter
+    </div>
+    <div><span>ReleaseTheme</span>
+        <button style="float: right;"><a href="/?ac=index">Back</a></button>
+    </div>
+    <div style="margin-top: 10px;">
+        <table>
+            <tr style="width: 100%">
+                <td style="width: 100px;">title</td>
+                <td style="width: 1100px;"><input type="text" style="width: 300px;" id="title"></td>
+            </tr>
+            <tr>
+                <td>content</td>
+                <td><textarea style="width: 300px;height: 100px;" id="text"></textarea></td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-top: 10px;">
+        <button style="" id="pushBtn">publish</button>
+    </div>
+{% endblock body %}
+{% block js %}
+    <script>
+        $(function () {
+            $('#pushBtn').click(function () {
+                var title = $('#title').val()
+                var text = $('#text').val()
+                $.post('/push', {title: title, text: text}, function (ret) {
+                    alert(ret.message)
+                    window.location.href = '/?ac=index'
+                })
+            })
+        })
+    </script>
+{% endblock js %}
+{% block css %}
+    <style>
+        .nav li {
+            display: inline-block;
+            width: 120px;
+        }
+
+        .nav {
+            background: #eee;
+            height: 40px;
+            line-height: 40px;
+        }
+    </style>
+{% endblock css %}

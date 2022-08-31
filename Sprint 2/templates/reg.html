@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+    Register
+{% endblock title %}
+{% block body %}
+    <div style="width: 300px;height: 170px; padding: 10px; background: #eee; border-radius: 5px; text-align: center; margin-left: 50%; left: -155px;margin-top: 15%;position: relative">
+        <div>RegUser</div>
+        <table style="display: inline-block; margin-top: 5%;">
+            <tr>
+                <td><input type="text" placeholder="user" id="user"></td>
+            </tr>
+            <tr>
+                <td><input type="password" placeholder="password" id="password"></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <button style="width: 170px;" id="regBtn">Register</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button style="width: 170px;"><a href="/">Back Login</a></button>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock body %}
+{% block js %}
+    <script>
+        $(function () {
+            $('#regBtn').click(function () {
+                var user = $('#user').val()
+                var password = $('#password').val()
+                $.post('/reg', {user: user, password: password}, function (ret) {
+                    console.log(ret);
+                    alert(ret.message)
+                })
+            })
+        })
+    </script>
+{% endblock js %}
+{% block css %}
+    <style>
+        tr {
+            margin-bottom: 15px;
+        }
+    </style>
+{% endblock css %}

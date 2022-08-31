@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}
+    BBSHome
+{% endblock title %}
+{% block body %}
+    <div style="line-height: 40px;background: #eee; text-align: center; margin-bottom: 20px;">
+        bbsForumCenter
+    </div>
+    <div>
+        <input type="text" id="title" name="title">
+        <button id="scBtn">searchTheme</button>
+        <button><a href="/?ac=push">releaseTheme</a></button>
+        <button style="float: right;"><a href="/">Logout</a></button>
+    </div>
+    <div style="margin-top: 10px;">
+        <table id="tb">
+
+        </table>
+    </div>
+{% endblock body %}
+{% block js %}
+    <script>
+        $(function () {
+            function getlist(v) {
+                console.log(v);
+                var title = v | ''
+                 $('#tb').html('<tr style="width: 100%">'+
+                '<td style="width: 700px">title</td>'+
+                '<td style="width: 200px">time</td>'+
+                '<td style="width: 150px">issuer</td>'+
+                '<td style="width: 150px">operation</td></tr>')
+                $.get('/getlist', {title: v}, function (ret) {
+                    console.log(ret);
+                    $.each(ret.data, function (k, v) {
+                        console.log(v);
+                        var d = ''
+                        if ('admin'==='{{ user }}' ){
+                            d = " <a style='margin-left: 20px;' class='del' pid="+v.id+" href='javascript:;'>delete</a>"
+                        }
+                        var tr = "<tr>" +
+                            "<td>" + v.title + "</td>" +
+                            "<td>" + v.ctime + "</td>" +
+                            "<td>" + v.user + "</td>" +
+                            "<td><a href='/?ac=can&id="+v.id+"'>check</a>"+d+"</td>" +
+                            "</tr>"
+
+                        $('#tb').append(tr)
+                    })
+
+                })
+            }
+
+            getlist()
+
+            $('#scBtn').click(function () {
+                var title = $('#title').val()
+                getlist(title)
+            })
+
+            //del
+            $('body').on('click', '.del',function () {
+                var pid = $(this).attr('pid')
+                $.post('/deleted', {'pid': pid}, function (ret) {
+                    alert(ret.message)
+                    window.location.reload()
+                })
+            })
+        })
+    </script>
+{% endblock js %}
+{% block css %}
+    <style>
+        .nav li {
+            display: inline-block;
+            width: 120px;
+        }
+
+        .nav {
+            background: #eee;
+            height: 40px;
+            line-height: 40px;
+        }
+    </style>
+{% endblock css %}
